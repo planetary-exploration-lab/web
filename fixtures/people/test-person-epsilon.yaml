@@ -1,0 +1,13 @@
+name: Test Person Epsilon
+positions:
+  - role: Postdoctoral Researcher (fake)
+    group: postdoc
+    start: 2019-07-01
+bio: Placeholder bio for test person Epsilon. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+photo:
+  src: ../photos/test-person-epsilon.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Epsilon.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }

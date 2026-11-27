@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import Hexagon from '../../../components/Hexagon.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData, type PublicPerson } from '../../../lib/data';
+import { localeUrl } from '../../../lib/url';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { people } = await loadData();
+// As on pxl.earth, and regardless of title. Current: the PI first, then join order (siteOrder, then start
+// date), so long-serving members are near the top. Alumni: most recent departures first (siteOrder, then
+// end date, newest first).
+const byOrder = (a: PublicPerson, b: PublicPerson) => (a.siteOrder ?? Infinity) - (b.siteOrder ?? Infinity);
+const time = (d: Date | undefined, missing: number) => d?.getTime() ?? missing;
+const current = people
+  .filter((p) => p.current)
+  .sort((a, b) => Number(b.lead) - Number(a.lead) || byOrder(a, b) || time(a.start, Infinity) - time(b.start, Infinity) || a.name.localeCompare(b.name));
+// Current undergraduates without a photo are not listed one by one; a single card gives their count
+// (Chris, 2026-11-21). They get their own card as soon as a photo with consent is added.
+const listed = current.filter((p) => !p.grouped);
+const unpictured = current.length - listed.length;
+const NUMBER_WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+const unpicturedLabel = unpictured === 1
+  ? t(ui, 'people.moreUndergrads.one')
+  : t(ui, 'people.moreUndergrads.other', { n: NUMBER_WORDS[unpictured] ?? unpictured });
+const alumni = people
+  .filter((p) => !p.current)
+  .sort((a, b) => byOrder(a, b) || time(b.end, 0) - time(a.end, 0) || a.name.localeCompare(b.name));
+
+const linkLabels: Record<string, string> = { website: 'Website', linkedin: 'LinkedIn', x: 'X', orcid: 'ORCID', github: 'GitHub' };
+const links = (p: PublicPerson) => Object.entries(p.links ?? {}).filter(([, v]) => v) as [string, string][];
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'people.title')} section="people">
+  <h1>{t(ui, 'people.title')}</h1>
+  <p class="lede">{t(ui, 'people.intro')} <a href={localeUrl(lang, 'contact/')}>{t(ui, 'nav.contact')}</a>.</p>
+  <section aria-labelledby="h-current">
+    <h2 id="h-current">{t(ui, 'people.current')}</h2>
+    <ul class="people">
+      {listed.map((p) => (
+        <li id={p.id}>
+          {p.photo
+            ? <Image class="photo" src={p.photo.src} alt={p.photo.alt} widths={[320, 640]} sizes="(max-width: 36rem) 100vw, 300px" />
+            : <div class="photo photo-none" aria-hidden="true"><Hexagon /></div>}
+          <p class="name">{p.bioEntry ? <a href={localeUrl(lang, `people/${p.id}/`)}>{p.name}</a> : p.name}</p>
+          {p.role && <p class="muted">{p.role}</p>}
+          {p.bio && <p>{p.bio}</p>}
+          {links(p).length > 0 && (
+            <p>{links(p).map(([k, v], i) => <>{i > 0 && ' · '}<a href={v}>{linkLabels[k]}<span class="visually-hidden">: {p.name}</span></a></>)}</p>
+          )}
+        </li>
+      ))}
+      {unpictured > 0 && (
+        <li class="group-card">
+          <div class="photo photo-none" aria-hidden="true"><Hexagon /></div>
+          <p class="name">{unpicturedLabel}</p>
+        </li>
+      )}
+    </ul>
+  </section>
+  {alumni.length > 0 && (
+    <section aria-labelledby="h-alumni">
+      <h2 id="h-alumni">{t(ui, 'people.alumni')}</h2>
+      <ul class="people">
+        {alumni.map((p) => (
+          <li id={p.id} class="alum">
+            {p.photo
+              ? <Image class="thumb" src={p.photo.src} alt={p.photo.alt} widths={[96, 192]} sizes="96px" />
+              : <div class="thumb photo-none" aria-hidden="true"><Hexagon /></div>}
+            <div>
+              <p class="name">{p.name}</p>
+              {p.role && <p class="muted">{p.role}</p>}
+              {p.now && <p>{t(ui, 'people.now')}: {p.now}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="lede alumni-earlier">{t(ui, 'people.alumniEarlier')}</p>
+    </section>
+  )}
+</Base>

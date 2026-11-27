@@ -1,0 +1,13 @@
+name: Test Person Theta
+positions:
+  - role: Graduate Research Assistant (fake)
+    group: grad
+    start: 2020-04-01
+fellowships: [Example Graduate Fellowship (fake)]
+photo:
+  src: ../photos/test-person-theta.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Theta.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  fellowships: { granted: true, date: 2026-11-20 }

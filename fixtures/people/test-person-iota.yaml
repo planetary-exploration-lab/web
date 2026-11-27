@@ -1,0 +1,17 @@
+name: Test Person Iota
+positions:
+  - role: Undergraduate Researcher (fake)
+    group: undergrad
+    start: 2021-07-01
+bio: Placeholder bio for test person Iota. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+links:
+  website: https://example.org/test-person-iota
+  github: https://example.org/gh-iota
+photo:
+  src: ../photos/test-person-iota.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Iota.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }
+  links: { granted: true, date: 2026-11-20 }

@@ -1,0 +1,13 @@
+---
+// One publication in a list, compact PubMed style:
+// Authors. Title (links to the paper's page, when it has one). Venue. Date;Vol(No):Pages. doi: … PMID: … then other links.
+import type { PubWithExtras } from '../lib/data';
+import { citeSource, pubLinks, withStop } from '../lib/pubs';
+import PubAuthors from './PubAuthors.astro';
+import PubIds from './PubIds.astro';
+interface Props { pub: PubWithExtras; href?: string }
+const { pub, href } = Astro.props;
+const links = pubLinks(pub);
+---
+<PubAuthors pub={pub} />. {href ? <a href={href}>{withStop(pub.data.title)}</a> : withStop(pub.data.title)} {citeSource(pub)}. <PubIds pub={pub} />
+{links.length > 0 && <span class="pub-links">{links.map((l, i) => <>{i > 0 && <span class="sep" aria-hidden="true"> · </span>}<a href={l.href}>{l.text}</a></>)}</span>}

@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import NewsItem from '../../components/NewsItem.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { localePaths, t, type Locale } from '../../i18n';
+import { loadData } from '../../lib/data';
+import { localeUrl } from '../../lib/url';
+import hero from '../../assets/site/home-hero.webp';
+import instrumentation from '../../assets/site/area-instrumentation.webp';
+import flight from '../../assets/site/area-flight.webp';
+import fieldwork from '../../assets/site/area-fieldwork.webp';
+import ssdl from '../../assets/logos/ssdl.webp';
+import gtae from '../../assets/logos/gt-ae.webp';
+import cstar from '../../assets/logos/cstar.webp';
+import eas from '../../assets/logos/eas.webp';
+import astrobiology from '../../assets/logos/astrobiology.webp';
+import explorigins from '../../assets/logos/explorigins.webp';
+import sri from '../../assets/logos/sri.webp';
+import bioastronautics from '../../assets/logos/bioastronautics.webp';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en'; // Home page content is English only for now.
+const { projects, news } = await loadData();
+const featured = projects.filter((p) => p.data.status === 'active').slice(0, 6);
+const latest = news.filter((n) => n.data.tier === 'feature').slice(0, 5);
+const areas = [
+  { key: 'instrumentation', img: instrumentation, alt: 'Collage of life-detection instruments: biological and solid-state nanopores (SETG), the BOOST organics trap, and the ELIE nanogap detector, set against Mars and icy moons.', text: 'Sensitive, specific, and agnostic methods for life detection, with a focus on single-molecule detection.' },
+  { key: 'flight', img: flight, alt: 'Overview of flight projects: Enterococcus experiments on the International Space Station, the BioX2 payload, Deep Space Radiation Genomics on Artemis I, and the Rocket Lab mission to Venus.', text: 'Payloads and experiments for the International Space Station, a mission to Venus, and more.' },
+  { key: 'fieldwork', img: fieldwork, alt: 'Overview of ground and field research: ExoArid in the Atacama Desert, ExoMethane, Arctic ice cores, Oceans Across Space and Time, and hypersaline lakes.', text: 'Lab studies and fieldwork at terrestrial analogs of Mars and ocean worlds.' },
+] as const;
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'site.name')} description={t(ui, 'site.tagline')} section="home">
+  <figure class="banner">
+    <Image src={hero} alt="Artistic montage of a spiral galaxy, molecules, and Earth." widths={[800, 1241]} sizes="(max-width: 72rem) 100vw, 70rem" loading="eager" fetchpriority="high" />
+  </figure>
+  <p class="eyebrow">{t(ui, 'site.name')}</p>
+  <h1>{t(ui, 'site.tagline')}</h1>
+  <p class="lede">{t(ui, 'home.intro')}</p>
+
+  <section aria-labelledby="h-areas">
+    <h2 id="h-areas">{t(ui, 'home.areas')}</h2>
+    <ul class="cards">
+      {areas.map((a) => (
+        <li class="card">
+          <Image src={a.img} alt={a.alt} widths={[400, 800]} sizes="(max-width: 40rem) 100vw, 22rem" class="contain" />
+          <div class="body">
+            <h3><a href={localeUrl(lang, `projects/${a.key}/`)}>{t(ui, `projects.filter.${a.key}`)}</a></h3>
+            <p>{a.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-featured">
+    <h2 id="h-featured">{t(ui, 'home.featured')}</h2>
+    <ProjectGrid lang={lang} ui={ui} projects={featured} headingLevel="h3" />
+    <p><a href={localeUrl(lang, 'projects/')}>{t(ui, 'home.allProjects')}</a></p>
+  </section>
+
+  <section aria-labelledby="h-news">
+    <h2 id="h-news">{t(ui, 'home.news')}</h2>
+    <ul class="news">
+      {latest.map((n) => <NewsItem item={n} ui={ui} withYear />)}
+    </ul>
+    <p><a href={localeUrl(lang, 'news/')}>{t(ui, 'home.allNews')}</a></p>
+  </section>
+
+  <section aria-labelledby="h-aff">
+    <h2 id="h-aff">{t(ui, 'home.affiliations')}</h2>
+    <ul class="logos">
+      {/* [image, accessible name, link, visible label]. A label is shown beside images that carry no readable name. */}
+      {([
+        [ssdl, 'Space Systems Design Laboratory, Georgia Tech Aerospace Engineering', 'https://ssdl.gatech.edu/'],
+        [gtae, 'Georgia Tech College of Engineering, Daniel Guggenheim School of Aerospace Engineering', 'https://ae.gatech.edu/'],
+        [eas, 'Georgia Tech School of Earth and Atmospheric Sciences', 'https://eas.gatech.edu/'],
+        [sri, 'Space Research Institute', 'https://space.gatech.edu/', 'Space Research Institute'],
+        [cstar, 'Center for Space Technology and Research', 'https://www.cstar.gatech.edu/'],
+        [astrobiology, 'Georgia Tech Astrobiology, Center for Astrobiology', 'https://astrobiology.gatech.edu/'],
+        [explorigins, 'ExplOrigins', 'https://astrobiology.gatech.edu/exo/'],
+        [bioastronautics, 'Bioastronautics Initiative', 'https://bioastronautics.gatech.edu/', 'Bioastronautics Initiative'],
+      ] as [ImageMetadata, string, string, string?][]).map(([img, name, href, label]) => (
+        <li><a href={href} class={label ? 'labeled' : undefined}>
+          <Image src={img} alt={label ? '' : name} height={56} densities={[1, 2]} />
+          {label && <span>{label}</span>}
+        </a></li>
+      ))}
+    </ul>
+  </section>
+</Base>

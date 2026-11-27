@@ -1,0 +1,13 @@
+name: Test Person Mu
+positions:
+  - role: Visiting Scholar (fake)
+    group: visiting
+    start: 2022-04-01
+links:
+  website: https://example.org/test-person-mu
+  github: https://example.org/gh-mu
+fellowships: [Example Graduate Fellowship (fake)]
+consent:
+  listing: { granted: true, date: 2026-11-20 }
+  links: { granted: true, date: 2026-11-20 }
+  fellowships: { granted: true, date: 2026-11-20 }

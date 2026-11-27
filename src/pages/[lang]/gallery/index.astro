@@ -1,0 +1,40 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+import { asset, localeUrl } from '../../../lib/url';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { gallery, projects } = await loadData();
+const projectName = new Map(projects.map((p) => [p.id, p.data.shortName ?? p.data.title]));
+// Large version for the enlarged view (and the no-JavaScript link target is the photo's own page).
+const large = await Promise.all(gallery.map((g) => getImage({ src: g.data.src, width: Math.min(1600, g.data.src.width), format: 'webp' })));
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'gallery.title')} description={t(ui, 'gallery.description')} section="gallery">
+  <h1>{t(ui, 'gallery.title')}</h1>
+  <ul
+    class="photo-grid"
+    data-lightbox
+    data-close={t(ui, 'gallery.close')}
+    data-prev={t(ui, 'gallery.prev')}
+    data-next={t(ui, 'gallery.next')}
+    data-count={t(ui, 'gallery.count', { n: '{n}', total: '{total}' })}
+  >
+    {gallery.map((g, i) => (
+      <li>
+        <a class="photo-tile" href={localeUrl(lang, `gallery/${g.id}/`)} data-full={large[i].src}>
+          <Image src={g.data.src} alt={g.data.alt} widths={[320, 640]} sizes="(max-width: 40rem) 50vw, 15rem" loading={i < 8 ? 'eager' : 'lazy'} />
+        </a>
+        <div class="photo-meta" hidden data-title={g.data.title}>
+          <p>{g.data.caption}</p>
+          {g.data.credit && <p class="muted">{t(ui, 'gallery.credit', { credit: g.data.credit })}</p>}
+          {g.data.project && <p><a href={localeUrl(lang, `projects/${g.data.project}/`)}>{t(ui, 'gallery.project', { project: projectName.get(g.data.project) ?? g.data.project })}</a></p>}
+        </div>
+      </li>
+    ))}
+  </ul>
+  <script is:inline src={asset('js/gallery.js')} defer></script>
+</Base>

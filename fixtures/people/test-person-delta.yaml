@@ -1,0 +1,13 @@
+name: Test Person Delta
+positions:
+  - role: Undergraduate Researcher (fake)
+    group: undergrad
+    start: 2018-04-01
+fellowships: [Example Graduate Fellowship (fake)]
+photo:
+  src: ../photos/test-person-delta.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Delta.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  fellowships: { granted: true, date: 2026-11-20 }

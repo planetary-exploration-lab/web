@@ -1,0 +1,13 @@
+{
+  "lang.name": "日本語",
+  "skip": "メインコンテンツへスキップ",
+  "nav.label": "メイン",
+  "nav.home": "ホーム",
+  "nav.projects": "プロジェクト",
+  "nav.people": "メンバー",
+  "nav.publications": "論文",
+  "nav.contact": "共同研究・お問い合わせ",
+  "lang.switcher": "言語",
+  "fallback.notice": "このページはまだ日本語に翻訳されていません。英語で表示しています。",
+  "nav.news": "ニュース"
+}

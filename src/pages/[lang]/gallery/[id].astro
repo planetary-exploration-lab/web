@@ -1,0 +1,37 @@
+---
+// One page per photo: the no-JavaScript target of each gallery tile, and a shareable link.
+import { Image } from 'astro:assets';
+import Base from '../../../layouts/Base.astro';
+import { LOCALES, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+import { localeUrl } from '../../../lib/url';
+
+export async function getStaticPaths() {
+  const { gallery } = await loadData();
+  return LOCALES.flatMap((lang) => gallery.map((g) => ({ params: { lang, id: g.id } })));
+}
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { gallery, projects } = await loadData();
+const i = gallery.findIndex((g) => g.id === Astro.params.id);
+const g = gallery[i];
+const prev = gallery[i - 1];
+const next = gallery[i + 1];
+const project = g.data.project ? projects.find((p) => p.id === g.data.project) : undefined;
+---
+<Base lang={lang} contentLang={ui} title={g.data.title} description={g.data.caption} section="gallery">
+  <p class="eyebrow"><a href={localeUrl(lang, 'gallery/')}>{t(ui, 'gallery.back')}</a></p>
+  <h1>{g.data.title}</h1>
+  <figure class="photo-full">
+    <Image src={g.data.src} alt={g.data.alt} widths={[640, 1200, 1600].filter((w) => w <= g.data.src.width)} sizes="(max-width: 72rem) 100vw, 70rem" loading="eager" />
+    <figcaption>
+      <p>{g.data.caption}</p>
+      {g.data.credit && <p class="muted">{t(ui, 'gallery.credit', { credit: g.data.credit })}</p>}
+      {project && <p><a href={localeUrl(lang, `projects/${project.id}/`)}>{t(ui, 'gallery.project', { project: project.data.shortName ?? project.data.title })}</a></p>}
+    </figcaption>
+  </figure>
+  <nav class="photo-pager" aria-label={t(ui, 'gallery.pager')}>
+    {prev && <a rel="prev" href={localeUrl(lang, `gallery/${prev.id}/`)}>{t(ui, 'gallery.prev')}: {prev.data.title}</a>}
+    {next && <a rel="next" href={localeUrl(lang, `gallery/${next.id}/`)}>{t(ui, 'gallery.next')}: {next.data.title}</a>}
+  </nav>
+</Base>

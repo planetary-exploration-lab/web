@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+# web-private is checked out here in CI only. Never commit it.
+private/
+.env
+.env.*
+.DS_Store
+test-results/

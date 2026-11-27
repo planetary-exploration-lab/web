@@ -1,0 +1,23 @@
+---
+// Root: static redirect to the English home page (meta refresh plus a visible link).
+import { localeUrl } from '../lib/url';
+const to = localeUrl('en');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={new URL(to, Astro.site).href} />
+    <title>Planetary eXploration Lab</title>
+  </head>
+  <body>
+    <main>
+      <h1>Planetary eXploration Lab</h1>
+      <p>Continue to the <a href={to}>English home page</a>.</p>
+    </main>
+  </body>
+</html>

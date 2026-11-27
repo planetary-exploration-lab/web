@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n';
+import { localeUrl } from '../lib/url';
+---
+<Base lang="en" title={t('en', 'notfound.title')} noAlternates>
+  <h1>{t('en', 'notfound.title')}</h1>
+  <p>{t('en', 'notfound.body')} <a href={localeUrl('en')}>{t('en', 'nav.home')}</a></p>
+</Base>

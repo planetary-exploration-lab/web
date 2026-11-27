@@ -1,0 +1,34 @@
+# Old Squarespace paths (www.pxl.earth) -> new paths. Generates static redirect pages:
+# meta refresh, rel=canonical and a visible link. id is the old path. Project pages add their own from legacyUrl.
+# During the preview these live under /web/; after cutover they sit at the old addresses.
+- { id: "/home", to: "/en/" }
+- { id: "/people", to: "/en/people/" }
+- { id: "/bio-carr", to: "/en/people/carr/" }
+- { id: "/publications", to: "/en/publications/" }
+- { id: "/news", to: "/en/news/" }
+- { id: "/contact", to: "/en/contact/" }
+- { id: "/gallery", to: "/en/gallery/" }
+- { id: "/research-overview", to: "/en/projects/" }
+- { id: "/research-all", to: "/en/projects/" }
+- { id: "/research-active", to: "/en/projects/active/" }
+- { id: "/research-completed", to: "/en/projects/completed/" }
+- { id: "/research-fieldwork", to: "/en/projects/fieldwork/" }
+- { id: "/research-instrumentation", to: "/en/projects/instrumentation/" }
+- { id: "/research-flight", to: "/en/projects/flight/" }
+- { id: "/cart", to: "/en/" }
+- { id: "/research-all/category/Active", to: "/en/projects/active/" }
+- { id: "/research-all/tag/Active", to: "/en/projects/active/" }
+- { id: "/research-all/category/Completed", to: "/en/projects/completed/" }
+- { id: "/research-all/tag/Completed", to: "/en/projects/completed/" }
+- { id: "/research-all/category/Research", to: "/en/projects/research/" }
+- { id: "/research-all/tag/Research", to: "/en/projects/research/" }
+- { id: "/research-all/category/Instrumentation", to: "/en/projects/instrumentation/" }
+- { id: "/research-all/tag/Instrumentation", to: "/en/projects/instrumentation/" }
+- { id: "/research-all/category/Fieldwork", to: "/en/projects/fieldwork/" }
+- { id: "/research-all/tag/Fieldwork", to: "/en/projects/fieldwork/" }
+- { id: "/research-all/category/Flight+Project", to: "/en/projects/flight/" }
+- { id: "/research-all/tag/Flight+Project", to: "/en/projects/flight/" }
+- { id: "/research-all/category/Flight%20Project", to: "/en/projects/flight/" }
+- { id: "/research-all/tag/Flight%20Project", to: "/en/projects/flight/" }
+- { id: "/people-1", to: "/en/people/" }  # Squarespace menu folder (forwarded to /people)
+- { id: "/research", to: "/en/projects/" }  # Squarespace menu folder (forwarded to /research-overview)

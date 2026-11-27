@@ -1,0 +1,30 @@
+# Routing layer: the site is the front door and never hosts the process.
+# To switch a form to an AI interview or another process later, change its url here.
+# url: an external URL, a site path like join/ (resolved per language), or null to show "coming soon".
+# audience: internal (Georgia Tech only) or external. hidden: true leaves a route off the page.
+# order: position on the page (lowest first).
+- id: prospective-student
+  order: 1
+  audience: external
+  label: Join the lab
+  description: Undergraduates, graduate students, and postdocs, plus options for high school students.
+  url: join/
+- id: collaboration
+  order: 2
+  audience: external
+  label: Propose a collaboration
+  description: Research partners, sponsors, and mission teams.
+  url: "https://ae.gatech.edu/directory/person/christopher-carr"  # same as CONTACT_PROFILE in src/lib/site.ts
+- id: media
+  order: 3
+  audience: external
+  label: Media and press
+  description: Interview and information requests.
+  url: "https://ae.gatech.edu/directory/person/christopher-carr"  # same as CONTACT_PROFILE in src/lib/site.ts
+- id: letter
+  order: 4
+  audience: internal
+  label: Request a letter of recommendation
+  description: For current and former lab members and students.
+  url: null
+  hidden: true  # shown once the request form exists

@@ -1,0 +1,13 @@
+name: Test Person Eta
+positions:
+  - role: Visiting Scholar (fake)
+    group: visiting
+    start: 2020-01-01
+bio: Placeholder bio for test person Eta. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+photo:
+  src: ../photos/test-person-eta.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Eta.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }

@@ -1,0 +1,14 @@
+name: Test Person Kappa
+positions:
+  - role: Postdoctoral Researcher (fake)
+    group: postdoc
+    start: 2021-10-01
+    end: 2023-05-31
+now: Example Company Kappa (fake)
+photo:
+  src: ../photos/test-person-kappa.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Kappa.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  now: { granted: true, date: 2026-11-20 }

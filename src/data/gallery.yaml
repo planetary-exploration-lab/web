@@ -1,0 +1,188 @@
+# Gallery photos, shown in order (lowest first). Images are in src/assets/gallery/ (see docs/images.md).
+# title: short name, used as the heading in the enlarged view and on the photo's own page.
+# alt: what the image shows. caption: context. credit: optional. project: optional project id.
+- id: georgia-tech-esm
+  order: 10
+  src: ../assets/gallery/georgia-tech-esm.webp
+  title: Georgia Tech
+  alt: A red brick building with tall, multi-pane windows behind trees and a Georgia Tech sign, with a high-rise tower bearing a Coca-Cola sign rising behind it.
+  caption: The Engineering Science and Mechanics (ESM) building at Georgia Tech, with Atlanta's Coca-Cola tower in the background.
+  credit: Christopher E. Carr
+- id: astrobiology-community
+  order: 20
+  src: ../assets/gallery/astrobiology-community.webp
+  title: Georgia Tech Astrobiology Community
+  alt: About thirty people, many wearing conference badges on red lanyards, pose for a group photo in a conference hall with tall arched windows.
+  caption: Members of the Georgia Tech Astrobiology Community at the Astrobiology Science Conference (AbSciCon) 2026 in Madison, Wisconsin.
+- id: atacama-noa
+  order: 22
+  src: ../assets/gallery/atacama-noa.webp
+  title: Atacama Desert
+  alt: Bare, sunlit desert ground of pale sand scattered with gray, angular rocks and pebbles, stretching to the horizon.
+  caption: The hyperarid core of the Atacama Desert, Chile, at the North of Antofagasta (NOA) site.
+  credit: Christopher E. Carr
+  project: exoarid
+- id: murchison-meteorite
+  order: 24
+  src: ../assets/gallery/murchison-meteorite.webp
+  title: Murchison meteorite
+  alt: Purple-gloved hands hold a small dish of aluminum foil with a dark, rough rock chip at its center.
+  caption: An interior chip of the Murchison meteorite about to be crushed and analyzed for amino acid content.
+  credit: José L. Ramírez-Colón
+  project: elie
+- id: elie-zero-g
+  order: 58
+  src: ../assets/gallery/elie-zero-g.webp
+  title: ELIE in zero gravity
+  alt: Two people in navy flight suits float inside an aircraft cabin, one upside down, above a black instrument case strapped to the floor.
+  caption: Christopher E. Carr and Maria T. Zuber experience weightlessness during a parabolic flight while testing a nanogap instrument prototype for the Electronic Life-detection Instrument for Enceladus/Europa (ELIE).
+  credit: Steve Boxall, Zero Gravity Corporation
+  project: elie
+- id: crs35-launch
+  order: 30
+  src: ../assets/gallery/crs35-launch.webp
+  title: CRS-35 launch
+  alt: A Falcon 9 rocket rises on a bright plume at night between launch towers, with exhaust clouds lit orange and reflected in the water.
+  caption: SpaceX CRS-35 launches at night from Cape Canaveral Space Force Station on October 13, 2026, carrying the final Genomic Enumeration of Antibiotic Resistance in Space (GEARS) flight experiment to the International Space Station.
+  credit: U.S. Space Force photo by Airman 1st Class Daryn Grace Hancock
+  project: entero
+- id: greenland-snowmobile
+  order: 56
+  src: ../assets/gallery/greenland-snowmobile.webp
+  title: Snowmobiling in Greenland
+  alt: Two people on snowmobiles towing loaded sleds across a flat, white ice sheet under a clear blue sky, with tracks in the snow behind them.
+  caption: Snowmobiling to a remote site near Summit Station, Greenland, during a project to collect an ice core and characterize gas anomalies and microbes entombed within the ice.
+  credit: Rachel Moore
+  project: insitu
+- id: biox2-payload
+  order: 57
+  src: ../assets/gallery/biox2-payload.webp
+  title: BioX2 payload
+  alt: A rectangular aluminum payload box with a machined X-pattern panel, signed in blue marker, on a lab bench beside a power supply and computer monitors.
+  caption: The BioX2 payload after it was returned to us following its flight. BioX2 carried an NVIDIA Jetson AGX, and our embedded payload used its graphics processing unit (GPU) for computing in space, including nanopore basecalling and genome assembly.
+  credit: Christopher E. Carr
+  project: biox2
+- id: venus-heat-shield
+  order: 50
+  src: ../assets/gallery/venus-heat-shield.webp
+  title: Venus probe heat shield
+  alt: Two engineers in lab coats and purple gloves fit a gold-colored conical heat shield together on a stand in a laboratory.
+  caption: Engineers at NASA's Ames Research Center fit-check the two halves of the heat shield for the Rocket Lab Mission to Venus probe.
+  credit: NASA/Brandon Torres Navarrete
+  project: morning-star
+- id: venusian-raaven
+  order: 55
+  src: ../assets/gallery/venusian-raaven.webp
+  title: VENUSIAN flight test
+  alt: A person in a NASA cap and headset takes a selfie beside a white fixed-wing drone resting on a folding table in a grassy pasture below forested hills.
+  caption: Christopher E. Carr and the RAAVEN drone at Kapāpala Ranch, Hawaii, preparing for a flight test of the Autofluorescence Nephelometer (AFN), the primary science instrument for the Rocket Lab Mission to Venus. March 19, 2025.
+  credit: Christopher E. Carr
+  project: venusian
+- id: mars-chamber
+  order: 60
+  src: ../assets/gallery/mars-chamber.webp
+  title: Mars chamber test
+  alt: A gloved hand holds a smartphone with a green display in front of an open stainless steel vacuum chamber in a lab.
+  caption: First successful hardware and sequencing test in our Mars thermal vacuum chamber, April 5, 2017.
+  credit: Christopher E. Carr
+  project: setg
+- id: minion
+  order: 70
+  src: ../assets/gallery/minion.webp
+  title: Portable DNA sequencing
+  alt: A small metal nanopore sequencer stacked on a black compute stick, above a pencil for scale.
+  caption: Portable single-molecule DNA sequencing, fall 2016. A nanopore MinION sequencer (top) and an Intel Compute Stick, controlled from a smartphone.
+  credit: Christopher E. Carr
+  project: setg
+- id: mars-simulants
+  order: 80
+  src: ../assets/gallery/mars-simulants.webp
+  title: Shades of Mars
+  alt: Six labeled glass jars with orange lids holding powders in shades of tan, red, and gray.
+  caption: Shades of Mars. Synthetic samples that mimic different regions of Mars, made by Angel Mojarro and used to validate life detection protocols for the Search for Extra-Terrestrial Genomes (SETG).
+  credit: Christopher E. Carr
+  project: setg
+- id: neutron-holder
+  order: 90
+  src: ../assets/gallery/neutron-holder.webp
+  title: Neutron radiation sample holder
+  alt: A red 3D-printed dome with rings of circular holes.
+  caption: Sample holder for exposing biological reagents to neutron radiation from a californium source, to test whether they could survive the trip to Mars in a future life detection instrument.
+  project: setg
+- id: collider-coffee
+  order: 100
+  src: ../assets/gallery/collider-coffee.webp
+  title: Collider Coffee
+  alt: A coffee maker beside a bag of Collider Coffee.
+  caption: What scientists and engineers drink when they need to accelerate their particles. At the NASA Space Radiation Laboratory, Brookhaven, New York.
+  credit: Christopher E. Carr
+- id: aerosol-drone
+  order: 110
+  src: ../assets/gallery/aerosol-drone.webp
+  title: Bioaerosol drone
+  alt: A small quadcopter drone with a round white collection disc at its center.
+  caption: A prototype bioaerosol collection drone, about 30 g. Impractical, but it made us think through the engineering challenges.
+- id: copahue-iron
+  order: 120
+  src: ../assets/gallery/copahue-iron.webp
+  title: Iron mineralization, Copahue
+  alt: Close-up of glistening orange and brown iron mineral deposits under flowing water.
+  caption: Iron mineralization in an acidic stream on the flank of Volcán Copahue, Andes Mountains.
+  credit: Christopher E. Carr
+- id: copahue-mud
+  order: 130
+  src: ../assets/gallery/copahue-mud.webp
+  title: Bubbling mud, Copahue
+  alt: A gray mud surface covered with bubbles.
+  caption: Bubbling mud at the hot springs of Volcán Copahue, Argentina, a terrestrial analog of ancient Mars.
+  credit: Christopher E. Carr
+- id: copahue-araucaria
+  order: 140
+  src: ../assets/gallery/copahue-araucaria.webp
+  title: Araucaria trees, Copahue
+  alt: Umbrella-shaped monkey puzzle trees under a blue sky on a dry, rocky slope.
+  caption: Araucaria araucana trees near Volcán Copahue, Argentina. These living fossils from the Mesozoic may once have fed sauropod dinosaurs with their thumb-sized pine nuts.
+  credit: Christopher E. Carr
+- id: rio-tinto-green
+  order: 150
+  src: ../assets/gallery/rio-tinto-green.webp
+  title: Rio Tinto, green
+  alt: Bright green microbial growth under shallow, sunlit water among rocks.
+  caption: Acid rock drainage at Rio Tinto, Spain, full of extremophile microbes.
+  credit: Christopher E. Carr
+- id: rio-tinto-red
+  order: 160
+  src: ../assets/gallery/rio-tinto-red.webp
+  title: Rio Tinto, red
+  alt: A pool of deep red and orange acidic water among ochre rocks.
+  caption: Acid rock drainage at Rio Tinto, Spain, colored by dissolved iron.
+  credit: Christopher E. Carr
+- id: devon-polar-bear
+  order: 170
+  src: ../assets/gallery/devon-polar-bear.webp
+  title: Polar bear tracks, Devon Island
+  alt: Polar bear paw prints beside boot prints in pale, dried mud.
+  caption: Polar bear encounter, in space but not time, on the largest uninhabited island in the world. Haughton Impact Structure, Devon Island, Nunavut, Canadian High Arctic.
+  credit: Christopher E. Carr
+- id: desert-rats
+  order: 180
+  src: ../assets/gallery/desert-rats.webp
+  title: Desert RATS, 2003
+  alt: Long-exposure night photo with streaks of light tracing a path along a dark hillside under a starry sky.
+  caption: Advanced space suit testing with NASA's Desert Research and Technology Studies (Desert RATS) at Meteor Crater, Arizona, 2003.
+  credit: Mark Sowa
+  project: human-performance
+- id: eva-display
+  order: 190
+  src: ../assets/gallery/eva-display.webp
+  title: Head-mounted display for spacewalks
+  alt: Black-and-white photo of a person in a space suit helmet with a small display in front of one eye.
+  caption: Our version of Google Glass, about 2002, developed with the MIT Media Lab, Boeing, and Hamilton Sundstrand to support astronauts during spacewalks.
+  credit: Christopher E. Carr
+  project: human-performance
+- id: mit
+  order: 1000
+  src: ../assets/gallery/mit.webp
+  title: MIT
+  alt: Modern campus buildings silhouetted against a pink sunset sky, joined by a glass skybridge.
+  caption: Massachusetts Institute of Technology, Cambridge, Massachusetts. Prof. Carr's former office is on the left.

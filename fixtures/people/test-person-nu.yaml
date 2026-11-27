@@ -1,0 +1,13 @@
+name: Test Person Nu
+positions:
+  - role: Graduate Research Assistant (fake)
+    group: grad
+    start: 2023-07-01
+bio: Placeholder bio for test person Nu. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+photo:
+  src: ../photos/test-person-nu.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Nu.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }

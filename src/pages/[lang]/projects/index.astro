@@ -1,0 +1,19 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ProjectFilters from '../../../components/ProjectFilters.astro';
+import ProjectGrid from '../../../components/ProjectGrid.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { projects } = await loadData();
+const sorted = [...projects].sort((a, b) => (a.data.status === b.data.status ? 0 : a.data.status === 'active' ? -1 : 1));
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'projects.title')} section="projects">
+  <h1>{t(ui, 'projects.title')}</h1>
+  <p class="lede">{t(ui, 'projects.intro')}</p>
+  <ProjectFilters lang={lang} ui={ui} />
+  <ProjectGrid lang={lang} ui={ui} projects={sorted} />
+</Base>

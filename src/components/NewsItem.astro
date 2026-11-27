@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  item: CollectionEntry<'news'>;
+  ui: Locale;
+  /** Show the year (home page) or only month and day (news page, already grouped by year). */
+  withYear?: boolean;
+  headingLevel?: 'h2' | 'h3' | 'p';
+}
+const { item, ui, withYear = false, headingLevel = 'h3' } = Astro.props;
+const { date, title, link, source, author, kind, datePrecision } = item.data;
+const H = headingLevel;
+// Show only as much of the date as the source gives (datePrecision), never an invented day.
+const iso = date.toISOString().slice(0, datePrecision === 'year' ? 4 : datePrecision === 'month' ? 7 : 10);
+const label = new Intl.DateTimeFormat(ui, {
+  timeZone: 'UTC',
+  ...(datePrecision !== 'year' ? { month: 'short' } : {}),
+  ...(datePrecision ? {} : { day: 'numeric' }),
+  ...(withYear || datePrecision === 'year' ? { year: 'numeric' } : {}),
+}).format(date);
+const tag = kind === 'student' ? t(ui, 'news.studentAward') : kind === 'postdoc' ? t(ui, 'news.postdocAward') : undefined;
+const meta = [source, author].filter(Boolean).join(' · ');
+---
+<li class:list={["news-item", { "news-item-year": withYear }]} id={`n-${item.id}`}>
+  <time datetime={iso}>{label}</time>
+  <div>
+    <H class="news-title">{link ? <a href={link}>{title}</a> : title}</H>
+    {tag && <p class="news-tag">{tag}</p>}
+    {meta && <p class="news-meta">{meta}</p>}
+    {Astro.slots.has('default') && <div class="news-body"><slot /></div>}
+  </div>
+</li>

@@ -1,0 +1,40 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import NewsItem from '../../../components/NewsItem.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { news } = await loadData();
+// Selected coverage: tier "feature", newest first, grouped by year. Summary-tier records are kept for the record
+// (and future per-project lists) and appear only in the "Earlier coverage" summary text.
+const featured = news.filter((n) => n.data.tier === 'feature');
+const items = await Promise.all(featured.map(async (n) => ({ n, Content: n.body?.trim() ? (await render(n)).Content : undefined })));
+const byYear = Map.groupBy(items, ({ n }) => n.data.date.getUTCFullYear());
+// Earlier coverage: everything before 2020 (when the lab moved to Georgia Tech) is summarized, not listed.
+// One landmark piece is linked inline; its URL comes from its record.
+const economist = news.find((n) => n.id.startsWith('2006-07-20-your-inflexible-friend'));
+const MARK = '\u0000';
+const [earlierBefore, earlierAfter = ''] = t(ui, 'news.earlierText', { economist: MARK }).split(MARK);
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'news.title')} section="news">
+  <h1>{t(ui, 'news.title')}</h1>
+  <p class="lede"><a href="#earlier">{t(ui, 'news.earlier')}</a></p>
+  {[...byYear].map(([year, list]) => (
+    <section aria-labelledby={`y${year}`}>
+      <h2 id={`y${year}`}>{year}</h2>
+      <ul class="news">
+        {list.map(({ n, Content }) => (
+          Content ? <NewsItem item={n} ui={ui}><Content /></NewsItem> : <NewsItem item={n} ui={ui} />
+        ))}
+      </ul>
+    </section>
+  ))}
+  <section aria-labelledby="earlier" class="earlier">
+    <h2 id="earlier">{t(ui, 'news.earlier')}</h2>
+    <p>{earlierBefore}{economist?.data.link ? <a href={economist.data.link}>“{economist.data.title}”</a> : `“Your inflexible friend”`}{earlierAfter}</p>
+  </section>
+</Base>

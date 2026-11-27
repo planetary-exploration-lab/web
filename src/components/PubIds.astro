@@ -1,0 +1,8 @@
+---
+// "doi: 10.x/y. PMID: 123. PMCID: PMC456." with only the identifier linked.
+import type { PubWithExtras } from '../lib/data';
+import { pubIds } from '../lib/pubs';
+interface Props { pub: PubWithExtras }
+const ids = pubIds(Astro.props.pub);
+---
+{ids.map((x, i) => <>{i > 0 && ' '}{x.label}: <a href={x.href}>{x.value}</a>.</>)}

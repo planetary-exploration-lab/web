@@ -1,0 +1,14 @@
+---
+// Author list in compact form ("Carr CE"), with the PI underlined and lab trainees in bold.
+// The publications page explains the marking.
+import type { PubWithExtras } from '../lib/data';
+import { authorName } from '../lib/pubs';
+interface Props { pub: PubWithExtras }
+const { pub } = Astro.props;
+const d = pub.data;
+const trainees = new Set(d.trainee_authors);
+---
+{d.authors.map((_, i) => {
+  const a = authorName(pub, i);
+  return <>{i > 0 && ', '}<span class="author">{i === d.owner_author ? <u>{a}</u> : trainees.has(i) ? <b>{a}</b> : a}</span></>;
+})}

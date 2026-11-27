@@ -1,0 +1,40 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+import { localeUrl } from '../../../lib/url';
+import { CONTACT_PROFILE, PLACES } from '../../../lib/site';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { routes } = await loadData();
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'contact.title')} section="contact">
+  <h1>{t(ui, 'contact.title')}</h1>
+  <h2>{t(ui, 'contact.expect')}</h2>
+  <p>{t(ui, 'contact.expectations')}</p>
+  <ul class="cards">
+    {routes.filter(({ data: r }) => !r.hidden).sort((a, b) => a.data.order - b.data.order).map(({ data: r }) => (
+      <li class="card"><div class="body">
+        <h2 class="h3">{r.url ? <a href={/^https?:/.test(r.url) ? r.url : localeUrl(lang, r.url)}>{r.label}</a> : r.label}</h2>
+        <p>{r.description}</p>
+        {r.audience === 'internal' && <p class="muted">{t(ui, 'contact.internal')}</p>}
+        {!r.url && <p class="muted">{t(ui, 'contact.soon')}</p>}
+      </div></li>
+    ))}
+  </ul>
+  <h2>{t(ui, 'contact.other')}</h2>
+  <p>{t(ui, 'contact.profileBefore')} <a href={CONTACT_PROFILE}>{t(ui, 'contact.profileLink')}</a> {t(ui, 'contact.profileAfter')}{' '}{t(ui, 'contact.peopleBefore')} <a href={localeUrl(lang, 'people/')}>{t(ui, 'contact.peopleLink')}</a> {t(ui, 'contact.peopleAfter')}</p>
+  <h2>{t(ui, 'contact.location')}</h2>
+  <ul class="cards">
+    {PLACES.map((p) => (
+      <li class="card"><div class="body">
+        <h3>{t(ui, `contact.place.${p.key}`)}</h3>
+        <address>{p.lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</address>
+        <p><a href={p.map}>{t(ui, 'contact.map', { place: p.name })}</a></p>
+      </div></li>
+    ))}
+  </ul>
+  <p>{t(ui, 'contact.coldBefore')} <a href={CONTACT_PROFILE}>{t(ui, 'contact.coldLink')}</a>.</p>
+</Base>

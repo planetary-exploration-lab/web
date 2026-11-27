@@ -1,0 +1,14 @@
+name: Test Person Xi
+positions:
+  - role: Undergraduate Researcher (fake)
+    group: undergrad
+    start: 2023-10-01
+    end: 2025-05-31
+now: Example Company Xi (fake)
+photo:
+  src: ../photos/test-person-xi.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Xi.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  now: { granted: true, date: 2026-11-20 }

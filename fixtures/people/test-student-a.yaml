@@ -1,0 +1,16 @@
+name: Test Student Alpha
+positions:
+  - role: Graduate Research Assistant (fake)
+    group: grad
+    start: 2024-08-15
+bio: This bio must not appear on the site, because bio consent is not granted.
+links:
+  github: https://example.org/test-student-alpha
+photo:
+  src: ../photos/test-student-a.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Student Alpha.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: false, date: 2026-11-20 }
+  links: { granted: true, date: 2026-11-20 }

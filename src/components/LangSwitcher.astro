@@ -1,0 +1,24 @@
+---
+// Compact language menu. A native disclosure widget: keyboard and screen-reader friendly, no JavaScript.
+import { LOCALES, t, type Locale } from '../i18n';
+import { switchLocale } from '../lib/url';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+---
+<nav class="lang-switcher" aria-label={t(lang, 'lang.switcher')}>
+  <details>
+    <summary>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></svg>
+      <span class="visually-hidden">{t(lang, 'lang.switcher')}: </span><span class="lang-full">{t(lang, 'lang.name')}</span><span class="lang-code" aria-hidden="true">{lang.toUpperCase()}</span>
+    </summary>
+    <ul>
+      {LOCALES.map((l) => (
+        <li>
+          <a href={switchLocale(Astro.url.pathname, l)} lang={l} hreflang={l} aria-current={l === lang ? 'true' : undefined}>
+            {t(l, 'lang.name')}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+</nav>

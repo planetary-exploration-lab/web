@@ -1,0 +1,36 @@
+---
+// One route for both project pages (/projects/<id>/) and filter pages (/projects/active/ and so on).
+import Base from '../../../layouts/Base.astro';
+import ProjectFilters from '../../../components/ProjectFilters.astro';
+import ProjectGrid from '../../../components/ProjectGrid.astro';
+import ProjectPage from './_project.astro';
+import { LOCALES, t, type Locale } from '../../../i18n';
+import { loadData, type Project } from '../../../lib/data';
+import { FILTERS, isFilter, type Filter } from '../../../lib/filters';
+
+export async function getStaticPaths() {
+  const { projects } = await loadData();
+  const clash = projects.filter((p) => isFilter(p.id));
+  if (clash.length) throw new Error(`Project IDs clash with filter pages: ${clash.map((p) => p.id).join(', ')}`);
+  return LOCALES.flatMap((lang) => [
+    ...projects.map((project) => ({ params: { lang, slug: project.id }, props: { project } })),
+    ...FILTERS.map((filter) => ({ params: { lang, slug: filter }, props: { filter } })),
+  ]);
+}
+interface Props { project?: Project; filter?: Filter }
+const { project, filter } = Astro.props;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+let list: Project[] = [];
+if (filter) {
+  const { projects } = await loadData();
+  list = projects.filter((p) => (filter === 'active' || filter === 'completed' ? p.data.status === filter : p.data.kinds.includes(filter)));
+}
+---
+{project ? <ProjectPage project={project} /> : (
+  <Base lang={lang} contentLang={ui} title={`${t(ui, 'projects.title')}: ${t(ui, `projects.filter.${filter!}`)}`} section="projects">
+    <h1>{t(ui, 'projects.title')}: {t(ui, `projects.filter.${filter!}`)}</h1>
+    <ProjectFilters lang={lang} ui={ui} current={filter} />
+    <ProjectGrid lang={lang} ui={ui} projects={list} />
+  </Base>
+)}

@@ -1,0 +1,15 @@
+---
+import { t, type Locale } from '../i18n';
+import { FILTERS, type Filter } from '../lib/filters';
+import { localeUrl } from '../lib/url';
+interface Props { lang: Locale; ui: Locale; current?: Filter }
+const { lang, ui, current } = Astro.props;
+---
+<nav class="filters" aria-label={t(ui, 'projects.filterLabel')}>
+  <ul>
+    <li><a href={localeUrl(lang, 'projects/')} aria-current={!current ? 'page' : undefined}>{t(ui, 'projects.filter.all')}</a></li>
+    {FILTERS.map((f) => (
+      <li><a href={localeUrl(lang, `projects/${f}/`)} aria-current={current === f ? 'page' : undefined}>{t(ui, `projects.filter.${f}`)}</a></li>
+    ))}
+  </ul>
+</nav>

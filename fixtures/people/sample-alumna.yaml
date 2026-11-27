@@ -1,0 +1,14 @@
+name: Sample Former Postdoc
+positions:
+  - role: Postdoctoral Researcher (fake)
+    group: postdoc
+    start: 2019-06-01
+    end: 2022-05-31
+now: Fictional Research Institute (fake)
+photo:
+  src: ../photos/sample-alumna.jpg
+  alt: Placeholder silhouette standing in for a photo of Sample Former Postdoc.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  now: { granted: true, date: 2026-11-20 }

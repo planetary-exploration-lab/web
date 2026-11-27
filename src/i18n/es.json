@@ -1,0 +1,13 @@
+{
+  "lang.name": "Español",
+  "skip": "Saltar al contenido principal",
+  "nav.label": "Principal",
+  "nav.home": "Inicio",
+  "nav.projects": "Proyectos",
+  "nav.people": "Personas",
+  "nav.publications": "Publicaciones",
+  "nav.contact": "Colabora con nosotros",
+  "lang.switcher": "Idioma",
+  "fallback.notice": "Esta página aún no está disponible en español. Se muestra en inglés.",
+  "nav.news": "Noticias"
+}

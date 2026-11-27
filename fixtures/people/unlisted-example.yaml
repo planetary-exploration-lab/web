@@ -1,0 +1,8 @@
+# Listing consent is false, so this record must not appear anywhere on the site.
+name: Unlisted Example Person
+positions:
+  - role: Visiting Researcher (fake)
+    group: visiting
+    start: 2025-03-01
+consent:
+  listing: { granted: false, date: 2026-11-20 }

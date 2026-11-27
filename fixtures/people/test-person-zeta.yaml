@@ -1,0 +1,18 @@
+name: Test Person Zeta
+positions:
+  - role: Research Engineer (fake)
+    group: staff
+    start: 2019-10-01
+    end: 2021-05-31
+now: Example Company Zeta (fake)
+links:
+  website: https://example.org/test-person-zeta
+  github: https://example.org/gh-zeta
+photo:
+  src: ../photos/test-person-zeta.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Zeta.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  links: { granted: true, date: 2026-11-20 }
+  now: { granted: true, date: 2026-11-20 }

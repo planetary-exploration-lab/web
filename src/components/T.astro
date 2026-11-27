@@ -1,0 +1,8 @@
+---
+// A UI string. Marks it lang="en" when the visitor's language has no translation yet.
+import { str, type Key, type Locale } from '../i18n';
+interface Props { lang: Locale; k: Key; vars?: Record<string, string | number> }
+const { lang, k, vars } = Astro.props;
+const s = str(lang, k, vars);
+---
+{s.lang === lang ? s.text : <span lang={s.lang}>{s.text}</span>}

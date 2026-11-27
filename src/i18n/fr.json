@@ -1,0 +1,13 @@
+{
+  "lang.name": "Français",
+  "skip": "Aller au contenu principal",
+  "nav.label": "Principale",
+  "nav.home": "Accueil",
+  "nav.projects": "Projets",
+  "nav.people": "Équipe",
+  "nav.publications": "Publications",
+  "nav.contact": "Travailler avec nous",
+  "lang.switcher": "Langue",
+  "fallback.notice": "Cette page n’est pas encore disponible en français. Elle s’affiche en anglais.",
+  "nav.news": "Actualités"
+}

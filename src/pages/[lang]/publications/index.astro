@@ -1,0 +1,56 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PubItem from '../../../components/PubItem.astro';
+import { localePaths, t, type Locale } from '../../../i18n';
+import { loadData } from '../../../lib/data';
+import { PUB_GROUPS, pubGroup, type PubGroup } from '../../../lib/pubs';
+import { ORCID_PROFILE, SCHOLAR_PROFILE } from '../../../lib/site';
+import { localeUrl } from '../../../lib/url';
+
+export const getStaticPaths = localePaths;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const { publications } = await loadData();
+const href = (id: string) => localeUrl(lang, `publications/${id}/`);
+
+// Featured papers carry a `priority` in their sidecar (1 first).
+const featured = publications
+  .filter((p) => p.extras?.priority !== undefined)
+  .sort((a, b) => (a.extras!.priority ?? 0) - (b.extras!.priority ?? 0));
+const groups: PubGroup[] = [...PUB_GROUPS.map((g) => g.key), 'other'];
+const hasTrainees = publications.some((p) => p.data.trainee_authors.length > 0);
+---
+<Base lang={lang} contentLang={ui} title={t(ui, 'pubs.title')} section="publications">
+  <div class="wide">
+  <h1>{t(ui, 'pubs.title')}</h1>
+  <p>
+    {t(ui, 'pubs.intro')} {t(ui, 'pubs.fullRecord')} <a href={SCHOLAR_PROFILE}>Google Scholar</a> {t(ui, 'pubs.and')} <a href={ORCID_PROFILE}>ORCID</a>.
+  </p>
+  <p class="muted">{t(ui, 'pubs.legendPi')}{hasTrainees && <> {t(ui, 'pubs.legendTrainee')}</>}</p>
+
+  {featured.length > 0 && (
+    <section aria-labelledby="h-featured">
+      <h2 id="h-featured">{t(ui, 'pubs.featured')}</h2>
+      <ul class="pubs-featured">
+        {featured.map((p) => (
+          <li>
+            <p><PubItem pub={p} href={href(p.id)} /></p>
+            {p.extras?.summary && <p class="pub-summary">{p.extras.summary}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {groups.map((g) => {
+    const items = publications.filter((p) => pubGroup(p.data.type) === g);
+    if (items.length === 0) return null;
+    return (
+      <section aria-labelledby={`h-${g}`}>
+        <h2 id={`h-${g}`}>{t(ui, `pubs.cat.${g}`)} <span class="muted">({items.length})</span></h2>
+        <ol class="pubs" reversed>{items.map((p) => <li><PubItem pub={p} href={href(p.id)} /></li>)}</ol>
+      </section>
+    );
+  })}
+  </div>
+</Base>

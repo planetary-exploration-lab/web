@@ -1,0 +1,9 @@
+name: Test Person Rho
+positions:
+  - role: Visiting Scholar (fake)
+    group: visiting
+    start: 2025-07-01
+bio: Placeholder bio for test person Rho. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+consent:
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }

@@ -1,0 +1,32 @@
+{
+  "name": "pxl-web",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "npm run check:types && npm run check:html && npm run check:dist && npm run check:a11y",
+    "check:types": "astro check",
+    "check:html": "html-validate \"dist/**/*.html\"",
+    "check:dist": "python3 -I scripts/check_dist.py dist",
+    "check:a11y": "node scripts/check-a11y.mjs dist",
+    "setup:browser": "playwright install chromium",
+    "check:private": "python3 -I scripts/check_private.py"
+  },
+  "dependencies": {
+    "astro": "7.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@types/node": "26.6.6",
+    "html-validate": "11.21.1",
+    "playwright": "1.65.1",
+    "typescript": "6.0.3"
+  }
+}

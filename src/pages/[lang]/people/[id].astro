@@ -1,0 +1,36 @@
+---
+// Individual pages exist only for people whose bio has consent (for example /en/people/carr/).
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { LOCALES, t, type Locale } from '../../../i18n';
+import { loadData, type PublicPerson } from '../../../lib/data';
+import { localeUrl } from '../../../lib/url';
+
+export async function getStaticPaths() {
+  const { people } = await loadData();
+  return LOCALES.flatMap((lang) => people.filter((p) => p.bioEntry).map((person) => ({ params: { lang, id: person.id }, props: { person } })));
+}
+interface Props { person: PublicPerson }
+const { person } = Astro.props;
+const lang = Astro.params.lang as Locale;
+const ui: Locale = 'en';
+const data = await loadData();
+const { Content } = await render(person.bioEntry!);
+const linkLabels: Record<string, string> = { website: 'Website', linkedin: 'LinkedIn', x: 'X', orcid: 'ORCID', github: 'GitHub' };
+const links = Object.entries(person.links ?? {}).filter(([, v]) => v) as [string, string][];
+---
+<Base lang={lang} contentLang={ui} title={person.name} section="people">
+  <article class="person">
+    <div class="person-head">
+      {person.photo && <Image class="person-photo" src={person.photo.src} alt={person.photo.alt} widths={[300, 600]} sizes="18rem" loading="eager" />}
+      <div>
+        <h1>{person.name}</h1>
+        <p class="lede">{person.role}</p>
+        {links.length > 0 && <p>{links.map(([k, v], i) => <>{i > 0 && ' · '}<a href={v}>{linkLabels[k]}</a></>)}</p>}
+        <p><a href={localeUrl(lang, 'people/')}>{t(ui, 'people.all')}</a></p>
+      </div>
+    </div>
+    <div class="prose"><Content /></div>
+  </article>
+</Base>

@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { t, type Locale } from '../../../i18n';
+import { loadData, type Project } from '../../../lib/data';
+import { localeUrl } from '../../../lib/url';
+import { inline } from '../../../lib/inline';
+import PubItem from '../../../components/PubItem.astro';
+import { PRESENTATION_TYPES } from '../../../lib/pubs';
+
+interface Props { project: Project }
+const { project } = Astro.props;
+const lang = Astro.params.lang as Locale;
+const data = await loadData();
+const tr = data.projectTranslation(project.id, lang);
+const ui: Locale = tr ? lang : 'en';
+const { Content } = await render(project);
+const pubs = data.pubsForProject(project.id);
+const labPubs = pubs.filter((p) => !PRESENTATION_TYPES.includes(p.data.type));
+const talks = pubs.filter((p) => PRESENTATION_TYPES.includes(p.data.type));
+const pubHref = (p: (typeof pubs)[number]) => (p.data.listed ? localeUrl(lang, `publications/${p.id}/`) : undefined);
+const related = data.relatedFor(project);
+const d = project.data;
+const f = d.facts ?? {};
+const list = (v: string | string[] | undefined) => (v === undefined ? [] : Array.isArray(v) ? v : [v]);
+const facts: [string, string][] = [
+  ...(f.pi ? [[t(ui, list(f.pi).length > 1 ? 'projects.facts.pis' : 'projects.facts.pi'), list(f.pi).join('; ')] as [string, string]] : []),
+  ...(f.coi ? [[t(ui, list(f.coi).length > 1 ? 'projects.facts.cois' : 'projects.facts.coi'), list(f.coi).join('; ')] as [string, string]] : []),
+  ...(['collaborators', 'dates', 'status', 'launch', 'funding'] as const)
+    .filter((k) => f[k])
+    .map((k) => [t(ui, `projects.facts.${k}`), f[k] as string] as [string, string]),
+];
+---
+<Base lang={lang} contentLang={ui} title={tr?.title ?? d.title} description={tr?.summary ?? d.summary} section="projects">
+  <article>
+    <p class="eyebrow">{d.shortName} · {t(ui, `projects.status.${d.status}`)}</p>
+    <h1>{tr?.title ?? d.title}</h1>
+    {d.fullName && <p class="muted">{d.fullName}</p>}
+    <p class="lede">{tr?.summary ?? d.summary}</p>
+    <div class="project-grid">
+      <aside class="project-rail" aria-label={t(ui, 'projects.details')}>
+        <figure class="project-image"><Image src={d.image.src} alt={d.image.alt} widths={[400, 800, 1200]} sizes="(min-width: 64rem) 22rem, 100vw" loading="eager" />{d.imageCaption && <figcaption>{d.imageCaption}</figcaption>}</figure>
+        {facts.length > 0 && (
+          <dl class="facts">
+            {facts.map(([label, value]) => (<><dt>{label}</dt><dd set:html={inline(value)} /></>))}
+          </dl>
+        )}
+        <ul class="tags" aria-label="Kind">{d.kinds.map((k) => <li>{k}</li>)}</ul>
+      </aside>
+      <div class="project-main">
+        <div class="prose"><Content /></div>
+    {labPubs.length > 0 && (
+      <section aria-labelledby="h-pubs">
+        <h2 id="h-pubs">{t(ui, 'projects.labPubs')}</h2>
+        <ul class="pubs">{labPubs.map((p) => <li><PubItem pub={p} href={pubHref(p)} /></li>)}</ul>
+      </section>
+    )}
+    {talks.length > 0 && (
+      <section aria-labelledby="h-talks">
+        <h2 id="h-talks">{t(ui, 'projects.presentations')}</h2>
+        <ul class="pubs">{talks.map((p) => <li><PubItem pub={p} href={pubHref(p)} /></li>)}</ul>
+      </section>
+    )}
+    {d.teamPublications.length > 0 && (
+      <section aria-labelledby="h-team">
+        <h2 id="h-team">{t(ui, 'projects.teamPubs')}</h2>
+        <ol class="pubs team-pubs">{d.teamPublications.map((x) => <li set:html={inline(x)} />)}</ol>
+      </section>
+    )}
+    {related.length > 0 && (
+      <section aria-labelledby="h-related">
+        <h2 id="h-related">{t(ui, 'projects.related')}</h2>
+        <ul>{related.map((r) => <li><a href={localeUrl(lang, `projects/${r.id}/`)}>{r.data.title}</a></li>)}</ul>
+      </section>
+    )}
+      </div>
+      {d.gallery.length > 0 && (
+        <section aria-labelledby="h-gallery" class="project-gallery">
+          <h2 id="h-gallery" class="h3">{t(ui, 'projects.gallery')}</h2>
+          {d.gallery.map((g) => (
+            <figure>
+              <Image src={g.src} alt={g.alt} widths={[400, 800]} sizes="(min-width: 64rem) 22rem, 100vw" />
+              {g.caption && <figcaption>{g.caption}</figcaption>}
+            </figure>
+          ))}
+        </section>
+      )}
+    </div>
+  </article>
+</Base>

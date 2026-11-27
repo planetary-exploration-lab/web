@@ -1,0 +1,9 @@
+name: Test Student Beta
+positions:
+  - role: Undergraduate Researcher (fake)
+    group: undergrad
+    start: 2025-01-10
+fellowships: [Example Fellowship (fake)]
+consent:
+  listing: { granted: true, date: 2026-11-20 }
+  fellowships: { granted: true, date: 2026-11-20 }

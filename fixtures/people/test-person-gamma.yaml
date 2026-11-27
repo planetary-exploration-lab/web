@@ -1,0 +1,17 @@
+name: Test Person Gamma
+positions:
+  - role: Graduate Research Assistant (fake)
+    group: grad
+    start: 2018-01-01
+bio: Placeholder bio for test person Gamma. Studies an imaginary topic in fictional detail, to show how a two-line bio wraps on the card.
+links:
+  website: https://example.org/test-person-gamma
+  github: https://example.org/gh-gamma
+photo:
+  src: ../photos/test-person-gamma.jpg
+  alt: Placeholder silhouette standing in for a photo of Test Person Gamma.
+consent:
+  photo: { granted: true, date: 2026-11-20 }
+  listing: { granted: true, date: 2026-11-20 }
+  bio: { granted: true, date: 2026-11-20 }
+  links: { granted: true, date: 2026-11-20 }
